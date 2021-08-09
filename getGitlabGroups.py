@@ -6,10 +6,10 @@ class GilLbabCollector:
     def __init__(self):
         pass
 
-    def collect_data():
+    def collect_data(gitlabGroup):
         query = """
         {
-        group(fullPath: "gitlab-org") {
+        group(fullPath: "gitlab_group") {
             name
             projects {
             nodes {
@@ -41,6 +41,7 @@ class GilLbabCollector:
         }
         """
 
+        query = query.replace('gitlab_group', gitlabGroup)
         url = 'https://gitlab.com/api/graphql'
         request = requests.post(url, json={'query': query})
         print(request.status_code)
@@ -60,5 +61,5 @@ class GilLbabCollector:
 
 
 
-
-GilLbabCollector.collect_data()
+glg = input("Enter GitLab GroupName: ")
+GilLbabCollector.collect_data(gitlabGroup = glg)
